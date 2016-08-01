@@ -1,8 +1,47 @@
+
+/*MAIN ELEMENTS*/
 body {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
+	color: #333;
+	list-style: none;
 }
 
 h1 {
 	color: #81bc00;
 }
+
+/*MAIN DISPLAY*/
+.main-display {
+	border: #81bc00 solid;
+	border-radius: 10px;
+	margin: 2vh;
+}
+
+/*FILTERS DISPLAY*/
+.filter-display {
+	border: #333 solid;
+	border-radius: 10px;
+	margin: 2vh;
+}
+
+/*APPAREL DISPLAY*/
+.apparel-display, .apparel-item {
+	text-align: center;
+	border: #81bc00 solid;
+	border-radius: 10px;
+	margin: 5vh;
+}
+
+.apparel-item {
+	display: inline-block;
+	text-align: center;
+	width: 25%;
+	height: auto;
+}
+
+.label {
+	color: #81bc00;
+}
+
+/*BASKET DISPLAY*/
