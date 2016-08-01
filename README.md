@@ -27,9 +27,9 @@ As a User I can view the products and their category, price and availability inf
 
 #Installation
 To install the dependencies and run the webapp locally on port 3000, follow the below instructions:
-- clone the following key to your chosen directory:
+- clone the following SSH key to your chosen directory:
 ```
-
+git@github.com:PowerlessCube/Deloitte-Apparel.git
 ```
 - navigate to the following folder level and type the following to install express package:
 
