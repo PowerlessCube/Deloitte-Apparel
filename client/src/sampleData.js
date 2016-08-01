@@ -1,4 +1,4 @@
-module.export = [
+module.exports = [
 	{
 		name: "Almond Toe Court Shoes, Patent Black",
 		gender: "Women",
