@@ -15,8 +15,10 @@ var MainDisplay = React.createClass({
 	render: function() {
 		return (
 			<div className="main-display">
-				Main Display
-				<FilterDisplay/>
+				Main Display <br/>
+				<FilterDisplay
+					itemCategory={this.state.apparelItems}
+				/>
 				<ApparelDisplay
 					apparelItems={this.state.apparelItems}
 				/>
