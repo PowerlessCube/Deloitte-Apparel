@@ -13,8 +13,8 @@ var MainDisplay = React.createClass({
 		};
 	},
 
-	handleCheck: function(e) {
-		console.log("checkbox ", e);
+	handleFormSubmit: function(e) {
+		console.log("handleApparelItemButton ", e);
 	},
 
 	render: function() {
@@ -27,6 +27,7 @@ var MainDisplay = React.createClass({
 				/>
 				<ApparelDisplay
 					apparelItems={this.state.apparelItems}
+					handleSubmit={this.handleFormSubmit}
 				/>
 				<BasketDisplay/>
 			</div>

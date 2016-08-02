@@ -21,7 +21,7 @@ var FilterDisplay = React.createClass ({
 						type="checkbox"
 						checked="defaultChecked"
 						key={index+1}
-						// onChange={this.handleCheck}
+						// onChange={this.props.handleCheck}
 					/>
 				</div>
 			)
