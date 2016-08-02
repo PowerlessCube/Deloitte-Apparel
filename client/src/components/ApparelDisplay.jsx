@@ -9,10 +9,8 @@ var ApparelDisplay = React.createClass ({
 						<li className="label">{apparel.name}</li>
 						<li><span className="label">Price: </span>£{apparel.price.toFixed(2)}</li>
 						<li><span className="label">Qty: </span>{apparel.quantity}</li>
-						<input type="button" value="-"/>
-						<input type="text" value="0"/>
-						<input type="button" value="+"/>
-						<input type="button" value="Add to Basket"/>
+						<input type="number" placeholder="0"/>
+						<input type="submit" value="Add to Basket"/>
 					</div>
 				)
 			})
