@@ -15,8 +15,8 @@ var FilterDisplay = React.createClass ({
 
 		var genderDisplay = gender.map(function(gender, index) {
 			return (
-				<div>
-					<label className="label" htmlFor="gender" key={index}>{gender}</label>
+				<div key={index}>
+					<label className="label" key={index}>{gender}</label>
 					<input
 						type="checkbox"
 						checked="defaultChecked"
@@ -29,8 +29,8 @@ var FilterDisplay = React.createClass ({
 
 		var categoryDisplay = category.map(function(category, index) {
 			return (
-				<div>
-					<label className="label"htmlFor="category" key={index}>{category} Wear</label>
+				<div key={index}>
+					<label className="label" key={index}>{category} Wear</label>
 					<input
 						type="checkbox"
 						checked="checked"
