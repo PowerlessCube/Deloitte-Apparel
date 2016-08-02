@@ -1,6 +1,10 @@
 var React = require("react");
 
 var ApparelDisplay = React.createClass ({
+	handleQtyChange: function(e) {
+		// body...
+	},
+
 	handleSubmit: function(e) {
 		e.preventDefault();
 		this.props.handleSubmit(e);
@@ -14,7 +18,12 @@ var ApparelDisplay = React.createClass ({
 					<li><span className="label">Price: </span>£{apparel.price.toFixed(2)}</li>
 					<li><span className="label">Qty: </span>{apparel.quantity}</li>
 					<form onSubmit={this.handleSubmit}>
-						<input type="number" placeholder="0"/>
+						<input
+							type="number"
+							min="0"
+							max={apparel.quantityß}
+							placeholder="0"
+						/>
 						<input type="submit" value="Add to Basket"/>
 					</form>
 				</div>

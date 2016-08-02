@@ -13,6 +13,10 @@ var MainDisplay = React.createClass({
 		};
 	},
 
+	updateQuantity: function() {
+		// body...
+	},
+
 	handleFormSubmit: function(e) {
 		console.log("handleApparelItemButton ", e);
 	},
