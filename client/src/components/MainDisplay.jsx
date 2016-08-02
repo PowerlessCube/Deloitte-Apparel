@@ -19,6 +19,8 @@ var MainDisplay = React.createClass({
 
 	handleFormSubmit: function(e) {
 		console.log("handleApparelItemButton ", e);
+		console.log("e.target ", e.target.qty.value);
+		console.log("e.className ", e.target.qty.className);
 	},
 
 	render: function() {

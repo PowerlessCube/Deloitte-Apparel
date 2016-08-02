@@ -19,9 +19,11 @@ var ApparelDisplay = React.createClass ({
 					<li><span className="label">Qty: </span>{apparel.quantity}</li>
 					<form onSubmit={this.handleSubmit}>
 						<input
+							id="qty"
+							className={index}
 							type="number"
 							min="0"
-							max={apparel.quantityß}
+							max={apparel.quantity}
 							placeholder="0"
 						/>
 						<input type="submit" value="Add to Basket"/>
