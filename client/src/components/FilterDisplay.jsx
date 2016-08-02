@@ -17,7 +17,12 @@ var FilterDisplay = React.createClass ({
 			return (
 				<div>
 					<label className="label" htmlFor="gender" key={index}>{gender}</label>
-					<input type="checkbox" checked="checked" key={index+1}/>
+					<input
+						type="checkbox"
+						checked="defaultChecked"
+						key={index+1}
+						// onChange={this.handleCheck}
+					/>
 				</div>
 			)
 		})
@@ -26,7 +31,11 @@ var FilterDisplay = React.createClass ({
 			return (
 				<div>
 					<label className="label"htmlFor="category" key={index}>{category} Wear</label>
-					<input type="checkbox" checked="checked" key={index+1}/>
+					<input
+						type="checkbox"
+						checked="checked"
+						key={index+1}
+					/>
 				</div>
 			)
 		})
