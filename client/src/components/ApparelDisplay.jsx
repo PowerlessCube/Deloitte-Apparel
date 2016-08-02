@@ -1,6 +1,10 @@
 var React = require("react");
 
 var ApparelDisplay = React.createClass ({
+	handleSubmit: function(e) {
+		e.preventDefault();
+		this.props.handleSubmit(e);
+	},
 
 	render: function() {
 		var apparelItemsDisplay = this.props.apparelItems.map(function(apparel, index) {
