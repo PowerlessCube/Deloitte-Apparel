@@ -9,12 +9,27 @@ var MainDisplay = React.createClass({
 	getInitialState: function() {
 		return {
 			apparelItems: SampleData,
-			basketItems: null
+			basketItems: [
+				{
+					name: "Almond Toe Court Shoes, Patent Black",
+					gender: "Women",
+					category: "Foot",
+					price: 99.00,
+					quantity: 1
+				}
+			]
 		};
 	},
 
-	updateBasket: function() {
-		
+	updateBasket: function(apparelIndex, basketQuantity) {
+
+		var currentBasketState = this.state.basketItems
+		// var newBasketItem = this.state.apparelItems[apparelIndex]
+		var newBasketItem = {};
+		Object.assign(newBasketItem, this.state.apparelItems[apparelIndex]);
+		newBasketItem.quantity = basketQuantity
+		var newBasketState = this.state.basketItems.concat(newBasketItem)
+		this.setState({basketItems: newBasketState})
 	},
 
 	updateApparelDisplay: function(apparelIndex, basketQuantity) {
@@ -30,9 +45,11 @@ var MainDisplay = React.createClass({
 	},
 
 	handleFormSubmit: function(e) {
+		// TODO: need logic check to see if items are above 0 and below stock quantity.
 		var apparelIndex = e.target.qty.className;
-		var basketQuantity = e.target.qty.value;
+		var basketQuantity = parseInt(e.target.qty.value);
 		this.updateApparelDisplay(apparelIndex, basketQuantity);
+		this.updateBasket(apparelIndex, basketQuantity);
 	},
 
 	render: function() {
@@ -47,7 +64,9 @@ var MainDisplay = React.createClass({
 					apparelItems={this.state.apparelItems}
 					handleSubmit={this.handleFormSubmit}
 				/>
-				<BasketDisplay/>
+				<BasketDisplay
+					basketDisplay={this.state.basketItems}
+				/>
 			</div>
 		)
 	}
