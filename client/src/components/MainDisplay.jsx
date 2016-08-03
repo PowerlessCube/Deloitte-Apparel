@@ -13,14 +13,11 @@ var MainDisplay = React.createClass({
 		};
 	},
 
-	updateQuantity: function(apparelItem, basketQuantity) {
-		apparelItem.quantity -= basketQuantity
-		return apparelItem
+	updateBasket: function() {
+		
 	},
 
-	handleFormSubmit: function(e) {
-		var apparelIndex = e.target.qty.className;
-		var basketQuantity = e.target.qty.value;
+	updateApparelDisplay: function(apparelIndex, basketQuantity) {
 		var newApparelItems = this.state.apparelItems.map(function(item) {
 				if (item !== this.state.apparelItems[apparelIndex]) {
 					return (item)
@@ -29,9 +26,13 @@ var MainDisplay = React.createClass({
 					return (item)
 				}
 		}.bind(this))
-		// var updatedApparelItems = this.updateQuantity(this.state.apparelItems[apparelIndex], basketQuantity)
-		console.log("updatedApparelItem: ", newApparelItems );
 		this.setState({apparelItems: newApparelItems})
+	},
+
+	handleFormSubmit: function(e) {
+		var apparelIndex = e.target.qty.className;
+		var basketQuantity = e.target.qty.value;
+		this.updateApparelDisplay(apparelIndex, basketQuantity);
 	},
 
 	render: function() {
