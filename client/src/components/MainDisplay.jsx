@@ -13,11 +13,11 @@ var MainDisplay = React.createClass({
 			apparelItems: SampleData,
 			basketItems: [
 				{
-					name: "Almond Toe Court Shoes, Patent Black",
+					name: "Mid Twist Cut-Out Dress, Pink",
 					gender: "Women",
-					category: "Foot",
-					price: 99.00,
-					quantity: 5
+					category: "Formal",
+					price: 540.00,
+					quantity: 2
 				}
 			],
 			totalDiscount: 0,
@@ -51,8 +51,8 @@ var MainDisplay = React.createClass({
 		}
 	},
 
-	updateApparelDisplay: function(basketItem, basketQuantity) {
-		var newApparelItems = this.state.apparelItems.map(function(item) {
+	removeItemFromState: function(array, basketItem, basketQuantity, targetState) {
+		var newState = array.map(function(item) {
 				if (item !== basketItem) {
 					return (item)
 				} else {
@@ -60,25 +60,58 @@ var MainDisplay = React.createClass({
 					return (item)
 				}
 		}.bind(this))
-		this.setState({apparelItems: newApparelItems})
+		this.setState({targetState: newState})
 	},
 
 	handleFormSubmitAddToBasket: function(e) {
 		var apparelIndex = e.target.qty.className;
 		var basketQuantity = parseInt(e.target.qty.value);
 		var basketItem = this.state.apparelItems[apparelIndex];
+		var newApparelItems = this.state.apparelItems
 		console.log("basketItem experiment:", basketItem );
-		this.updateApparelDisplay(basketItem, basketQuantity);
+		this.removeItemFromState(newApparelItems, basketItem, basketQuantity, this.state.apparel);
 		this.updateBasket(basketItem, basketQuantity);
 	},
 
+	// RemoveFromBasket: function(basketItem, basketQuantity) {
+	// 	var currentBasketState = this.state.basketItems
+	// 	var newBasketItem = {};
+	// 	Object.assign(newBasketItem, basketItem);
+	// 	if (currentBasketState.length === 0) {
+	// 		this.newItemAdded(newBasketItem, basketQuantity)
+	// 	} else {
+	// 		currentBasketState.forEach(function(item) {
+	// 			// HACK: Currently using items names as comparison check would require unique ids in future.
+	// 			if (item.name === newBasketItem.name) {
+	// 				item.quantity -= basketQuantity
+	// 				return (this.setState({basketItems: currentBasketState}))
+	// 			} else {
+	// 				this.newItemAdded(newBasketItem, basketQuantity)
+	// 			}
+	// 		}.bind(this))
+	// 	}
+	// },
+
 	// Removing items from Basket
+	// removeFromArray: function(basketItem, basketQuantity) {
+	// 	var newApparelItems = this.state.apparelItems.map(function(item) {
+	// 			if (item !== basketItem) {
+	// 				return (item)
+	// 			} else {
+	// 				item.quantity += basketQuantity
+	// 				return (item)
+	// 			}
+	// 	}.bind(this))
+	// 	this.setState({apparelItems: newApparelItems})
+	// },
+
 	handleFormSubmitRemoveFromBasket: function(e) {
 		console.log("you have reached: handleFormSubmitRemoveFromBasket");
 		var apparelIndex = e.target.qty.className;
 		var basketQuantity = parseInt(e.target.qty.value);
-		this.updateApparelDisplay(apparelIndex, basketQuantity);
-		this.updateBasket(apparelIndex, basketQuantity);
+		var basketItem = this.state.basketItems[apparelIndex]
+		// this.removeFromArray(basketItem, basketQuantity);
+		// this.RemoveFromBasket(basketItem, basketQuantity);
 	},
 
 	//Totaling Basket Amount
