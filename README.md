@@ -13,17 +13,24 @@ There are also discount vouchers available that can be redeemed. The discount vo
 - £15.00 off when you have bought at least one footwear item and spent over £75.00
 
 #User Stories
-The prioritised list of user stories is as follows:
-
+The prioritize list of user stories is as follows:
 As a User I can view the products and their category, price and availability information.
 
-1. As a User I can add a product to my shopping cart.
-2. As a User I can remove a product from my shopping cart.
-3. As a User I can view the total price for the products in my shopping cart.
+user stories with [x] - have been successfully completed.
+
+1. As a User I can add a product to my shopping cart. [x]
+2. As a User I can remove a product from my shopping cart. [x]
+3. As a User I can view the total price for the products in my shopping cart. [x]
 4. As a User I can apply a voucher to my shopping cart.
 5. As a User I can view the total price for the products in my shopping cart with discounts applied.
 6. As a User I am alerted when I apply an invalid voucher to my shopping cart.
-7. As a User I am unable to Out of Stock products to the shopping cart.
+7. As a User I am unable to Out of Stock products to the shopping cart. [x]
+
+#Tools Used:
+- React
+- Webpack
+
+#To-do List
 
 #Installation
 To install the dependencies and run the webapp locally on port 3000, follow the below instructions:

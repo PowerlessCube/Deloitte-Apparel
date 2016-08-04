@@ -102,7 +102,7 @@ var MainDisplay = React.createClass({
 		var quantity = parseInt(e.target.qty.value);
 		var selectedItem = this.state.basketItems[index];
 		var state = this.state.basketItems
-		if ((quantity >= 1) && (quantity < selectedItem.quantity)) {
+		if ((quantity > 0) && (quantity <= selectedItem.quantity)) {
 			this.removeItemFromBasket(state, selectedItem, quantity);
 			this.updateApparel(selectedItem, quantity);
 		} else {
