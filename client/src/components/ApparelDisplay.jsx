@@ -14,6 +14,7 @@ var ApparelDisplay = React.createClass ({
 					<li className="label">{apparel.name}</li>
 					<li><span className="label">Price: </span>£{apparel.price.toFixed(2)}</li>
 					<li><span className="label">Qty: </span>{apparel.quantity}</li>
+					<li><span className="label">Category: </span>{apparel.gender}s {apparel.category}wear</li>
 					<form onSubmit={this.handleSubmit}>
 						<input
 							id="qty"
