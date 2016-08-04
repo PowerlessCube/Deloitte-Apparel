@@ -60,8 +60,12 @@ var MainDisplay = React.createClass({
 		var quantity = parseInt(e.target.qty.value);
 		var basketItem = this.state.apparelItems[index];
 		var newApparelItems = this.state.apparelItems
-		this.removeItemFromApparel(newApparelItems, basketItem, quantity);
-		this.updateBasket(basketItem, quantity);
+		if ((quantity >= 1) && (quantity <= basketItem.quantity)) {
+			this.removeItemFromApparel(newApparelItems, basketItem, quantity);
+			this.updateBasket(basketItem, quantity);
+		} else {
+			console.log("Illegal Command: no stock selected");
+		}
 	},
 
 	//Removing Items from basket
@@ -94,13 +98,16 @@ var MainDisplay = React.createClass({
 	},
 
 	handleFormSubmitRemoveFromBasket: function(e) {
-		console.log("you have reached: handleFormSubmitRemoveFromBasket");
 		var index = e.target.qty.className;
 		var quantity = parseInt(e.target.qty.value);
 		var selectedItem = this.state.basketItems[index];
 		var state = this.state.basketItems
-		this.removeItemFromBasket(state, selectedItem, quantity);
-		this.updateApparel(selectedItem, quantity);
+		if ((quantity >= 1) && (quantity < selectedItem.quantity)) {
+			this.removeItemFromBasket(state, selectedItem, quantity);
+			this.updateApparel(selectedItem, quantity);
+		} else {
+			console.log("Illegal Command: no basket Item selected");
+		}
 	},
 
 	//Totaling Basket Amount
