@@ -1,3 +1,5 @@
+//Feature currently not in use.
+
 var React = require("react");
 var _ = require("lodash");
 

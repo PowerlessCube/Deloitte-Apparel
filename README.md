@@ -31,6 +31,13 @@ user stories with [x] - have been successfully completed.
 - Webpack
 
 #To-do List
+- Discounts: I will write the logic as follows for the discounts
+- £5.00 discount - There will be a logic check on Form submit that applies the voucher to to totalDiscount. totalDiscount will then subtract from subtotal and update shopping total accordingly.
+the logic will also extend to removing the voucher when the basket is in an empty state.
+
+- £10.00 discount - There will be a logic check when the Sub-total has reached £50.  Once the conditional is true the voucher will be added to the total Discount and subtracted from the Subtotal to give the shopping total.
+
+- £15.00 discount - There will be a logic check that checks the basket items for the category of footwear and will also check to see if sub-total is above £75.00. Once both conditions meet true the discount will be applied to total discount and subtracted from sub-total to give the discounted Shopping total.
 
 #Installation
 To install the dependencies and run the webapp locally on port 3000, follow the below instructions:
