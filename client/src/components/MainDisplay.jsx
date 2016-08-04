@@ -13,14 +13,19 @@ var MainDisplay = React.createClass({
 		};
 	},
 
+	//Adding Items to baskets
+	newItemAdded: function(newBasketItem, basketQuantity) {
+		newBasketItem.quantity = basketQuantity
+		var newBasketState = this.state.basketItems.concat(newBasketItem)
+		return (this.setState({basketItems: newBasketState}))
+	},
+
 	updateBasket: function(apparelIndex, basketQuantity) {
 		var currentBasketState = this.state.basketItems
 		var newBasketItem = {};
 		Object.assign(newBasketItem, this.state.apparelItems[apparelIndex]);
 		if (currentBasketState.length === 0) {
-			newBasketItem.quantity = basketQuantity
-			var newBasketState = this.state.basketItems.concat(newBasketItem)
-			return (this.setState({basketItems: newBasketState}))
+			this.newItemAdded(newBasketItem, basketQuantity)
 		} else {
 			currentBasketState.forEach(function(item) {
 				// HACK: Currently using items names as comparison check would require unique ids in future.
@@ -28,9 +33,7 @@ var MainDisplay = React.createClass({
 					item.quantity += basketQuantity
 					return (this.setState({basketItems: currentBasketState}))
 				} else {
-					newBasketItem.quantity = basketQuantity
-					var newBasketState = this.state.basketItems.concat(newBasketItem)
-					return (this.setState({basketItems: newBasketState}))
+					this.newItemAdded(newBasketItem, basketQuantity)
 				}
 			}.bind(this))
 		}
