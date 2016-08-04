@@ -9,15 +9,7 @@ var MainDisplay = React.createClass({
 	getInitialState: function() {
 		return {
 			apparelItems: SampleData,
-			basketItems: [
-				{
-					name: "Almond Toe Court Shoes, Patent Black",
-					gender: "Women",
-					category: "Foot",
-					price: 99.00,
-					quantity: 1
-				}
-			]
+			basketItems: []
 		};
 	},
 
@@ -25,17 +17,23 @@ var MainDisplay = React.createClass({
 		var currentBasketState = this.state.basketItems
 		var newBasketItem = {};
 		Object.assign(newBasketItem, this.state.apparelItems[apparelIndex]);
-		currentBasketState.forEach(function(item) {
-			// HACK: Currently using items names as comparison check would require unique ids in future.
-			if (item.name === newBasketItem.name) {
-				item.quantity += basketQuantity
-				return (this.setState({basketItems: currentBasketState}))
-			} else {
-				newBasketItem.quantity = basketQuantity
-				var newBasketState = this.state.basketItems.concat(newBasketItem)
-				return (this.setState({basketItems: newBasketState}))
-			}
-		}.bind(this))
+		if (currentBasketState.length === 0) {
+			newBasketItem.quantity = basketQuantity
+			var newBasketState = this.state.basketItems.concat(newBasketItem)
+			return (this.setState({basketItems: newBasketState}))
+		} else {
+			currentBasketState.forEach(function(item) {
+				// HACK: Currently using items names as comparison check would require unique ids in future.
+				if (item.name === newBasketItem.name) {
+					item.quantity += basketQuantity
+					return (this.setState({basketItems: currentBasketState}))
+				} else {
+					newBasketItem.quantity = basketQuantity
+					var newBasketState = this.state.basketItems.concat(newBasketItem)
+					return (this.setState({basketItems: newBasketState}))
+				}
+			}.bind(this))
+		}
 	},
 
 	updateApparelDisplay: function(apparelIndex, basketQuantity) {
@@ -51,7 +49,6 @@ var MainDisplay = React.createClass({
 	},
 
 	handleFormSubmit: function(e) {
-
 		var apparelIndex = e.target.qty.className;
 		var basketQuantity = parseInt(e.target.qty.value);
 		this.updateApparelDisplay(apparelIndex, basketQuantity);
