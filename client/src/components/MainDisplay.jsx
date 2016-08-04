@@ -22,14 +22,20 @@ var MainDisplay = React.createClass({
 	},
 
 	updateBasket: function(apparelIndex, basketQuantity) {
-
 		var currentBasketState = this.state.basketItems
-		// var newBasketItem = this.state.apparelItems[apparelIndex]
 		var newBasketItem = {};
 		Object.assign(newBasketItem, this.state.apparelItems[apparelIndex]);
-		newBasketItem.quantity = basketQuantity
-		var newBasketState = this.state.basketItems.concat(newBasketItem)
-		this.setState({basketItems: newBasketState})
+		currentBasketState.forEach(function(item) {
+			// HACK: Currently using items names as comparison check would require unique ids in future.
+			if (item.name === newBasketItem.name) {
+				item.quantity += basketQuantity
+				return (this.setState({basketItems: currentBasketState}))
+			} else {
+				newBasketItem.quantity = basketQuantity
+				var newBasketState = this.state.basketItems.concat(newBasketItem)
+				return (this.setState({basketItems: newBasketState}))
+			}
+		}.bind(this))
 	},
 
 	updateApparelDisplay: function(apparelIndex, basketQuantity) {
@@ -45,7 +51,7 @@ var MainDisplay = React.createClass({
 	},
 
 	handleFormSubmit: function(e) {
-		// TODO: need logic check to see if items are above 0 and below stock quantity.
+
 		var apparelIndex = e.target.qty.className;
 		var basketQuantity = parseInt(e.target.qty.value);
 		this.updateApparelDisplay(apparelIndex, basketQuantity);
