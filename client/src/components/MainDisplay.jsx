@@ -2,7 +2,7 @@ var React = require("react");
 
 var SampleData = require("../sampleData.js");
 var ApparelDisplay = require("./ApparelDisplay.jsx");
-var FilterDisplay = require("./FilterDisplay.jsx");
+// var FilterDisplay = require("./FilterDisplay.jsx");
 var BasketDisplay = require("./BasketDisplay.jsx");
 var TotalDisplay = require("./TotalDisplay.jsx");
 var TotalLogic = require("../models/totalLogic.js")
@@ -11,7 +11,15 @@ var MainDisplay = React.createClass({
 	getInitialState: function() {
 		return {
 			apparelItems: SampleData,
-			basketItems: [],
+			basketItems: [
+				{
+					name: "Almond Toe Court Shoes, Patent Black",
+					gender: "Women",
+					category: "Foot",
+					price: 99.00,
+					quantity: 5
+				}
+			],
 			totalDiscount: 0,
 			shoppingTotal: 0
 		};
@@ -24,10 +32,10 @@ var MainDisplay = React.createClass({
 		return (this.setState({basketItems: newBasketState}))
 	},
 
-	updateBasket: function(apparelIndex, basketQuantity) {
+	updateBasket: function(basketItem, basketQuantity) {
 		var currentBasketState = this.state.basketItems
 		var newBasketItem = {};
-		Object.assign(newBasketItem, this.state.apparelItems[apparelIndex]);
+		Object.assign(newBasketItem, basketItem);
 		if (currentBasketState.length === 0) {
 			this.newItemAdded(newBasketItem, basketQuantity)
 		} else {
@@ -43,9 +51,9 @@ var MainDisplay = React.createClass({
 		}
 	},
 
-	updateApparelDisplay: function(apparelIndex, basketQuantity) {
+	updateApparelDisplay: function(basketItem, basketQuantity) {
 		var newApparelItems = this.state.apparelItems.map(function(item) {
-				if (item !== this.state.apparelItems[apparelIndex]) {
+				if (item !== basketItem) {
 					return (item)
 				} else {
 					item.quantity -= basketQuantity
@@ -56,6 +64,17 @@ var MainDisplay = React.createClass({
 	},
 
 	handleFormSubmitAddToBasket: function(e) {
+		var apparelIndex = e.target.qty.className;
+		var basketQuantity = parseInt(e.target.qty.value);
+		var basketItem = this.state.apparelItems[apparelIndex];
+		console.log("basketItem experiment:", basketItem );
+		this.updateApparelDisplay(basketItem, basketQuantity);
+		this.updateBasket(basketItem, basketQuantity);
+	},
+
+	// Removing items from Basket
+	handleFormSubmitRemoveFromBasket: function(e) {
+		console.log("you have reached: handleFormSubmitRemoveFromBasket");
 		var apparelIndex = e.target.qty.className;
 		var basketQuantity = parseInt(e.target.qty.value);
 		this.updateApparelDisplay(apparelIndex, basketQuantity);
@@ -72,16 +91,13 @@ var MainDisplay = React.createClass({
 		return (
 			<div className="main-display">
 				Main Display <br/>
-				<FilterDisplay
-					itemCategory={this.state.apparelItems}
-					handleCheck={this.handleCheck}
-				/>
 				<ApparelDisplay
 					apparelItems={this.state.apparelItems}
-					handleSubmit={this.handleFormSubmitAddToBasket}
+					handleApparelSubmit={this.handleFormSubmitAddToBasket}
 				/>
 				<BasketDisplay
 					basketDisplay={this.state.basketItems}
+					handleBasketSubmit={this.handleFormSubmitRemoveFromBasket}
 				/>
 				<TotalDisplay
 					subTotal={this.handleSubTotal()}

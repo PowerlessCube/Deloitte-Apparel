@@ -4,7 +4,7 @@ var ApparelDisplay = React.createClass ({
 
 	handleSubmit: function(e) {
 		e.preventDefault();
-		this.props.handleSubmit(e);
+		this.props.handleApparelSubmit(e);
 	},
 
 	render: function() {
