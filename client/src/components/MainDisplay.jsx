@@ -11,15 +11,7 @@ var MainDisplay = React.createClass({
 	getInitialState: function() {
 		return {
 			apparelItems: SampleData,
-			basketItems: [
-				{
-					name: "Mid Twist Cut-Out Dress, Pink",
-					gender: "Women",
-					category: "Formal",
-					price: 540.00,
-					quantity: 2
-				}
-			],
+			basketItems: [],
 			totalDiscount: 0,
 			shoppingTotal: 0
 		};
@@ -51,7 +43,7 @@ var MainDisplay = React.createClass({
 		}
 	},
 
-	removeItemFromState: function(array, basketItem, basketQuantity, targetState) {
+	removeItemFromApparel: function(array, basketItem, basketQuantity) {
 		var newState = array.map(function(item) {
 				if (item !== basketItem) {
 					return (item)
@@ -60,58 +52,55 @@ var MainDisplay = React.createClass({
 					return (item)
 				}
 		}.bind(this))
-		this.setState({targetState: newState})
+		this.setState({apparelItems: newState})
 	},
 
 	handleFormSubmitAddToBasket: function(e) {
-		var apparelIndex = e.target.qty.className;
-		var basketQuantity = parseInt(e.target.qty.value);
-		var basketItem = this.state.apparelItems[apparelIndex];
+		var index = e.target.qty.className;
+		var quantity = parseInt(e.target.qty.value);
+		var basketItem = this.state.apparelItems[index];
 		var newApparelItems = this.state.apparelItems
-		console.log("basketItem experiment:", basketItem );
-		this.removeItemFromState(newApparelItems, basketItem, basketQuantity, this.state.apparel);
-		this.updateBasket(basketItem, basketQuantity);
+		this.removeItemFromApparel(newApparelItems, basketItem, quantity);
+		this.updateBasket(basketItem, quantity);
 	},
 
-	// RemoveFromBasket: function(basketItem, basketQuantity) {
-	// 	var currentBasketState = this.state.basketItems
-	// 	var newBasketItem = {};
-	// 	Object.assign(newBasketItem, basketItem);
-	// 	if (currentBasketState.length === 0) {
-	// 		this.newItemAdded(newBasketItem, basketQuantity)
-	// 	} else {
-	// 		currentBasketState.forEach(function(item) {
-	// 			// HACK: Currently using items names as comparison check would require unique ids in future.
-	// 			if (item.name === newBasketItem.name) {
-	// 				item.quantity -= basketQuantity
-	// 				return (this.setState({basketItems: currentBasketState}))
-	// 			} else {
-	// 				this.newItemAdded(newBasketItem, basketQuantity)
-	// 			}
-	// 		}.bind(this))
-	// 	}
-	// },
+	//Removing Items from basket
+	removeItemFromBasket: function(state, selectedItem, quantity) {
+		var newState = state.map(function(item, index) {
+				if (item !== selectedItem) {
+					return (item)
+				} else {
+					item.quantity -= quantity
+					return (item)
+				}
+		}.bind(this))
+		var filteredState = newState.filter(function(item) {
+			return item.quantity != 0
+		})
+		this.setState({basketItems: filteredState})
+	},
 
-	// Removing items from Basket
-	// removeFromArray: function(basketItem, basketQuantity) {
-	// 	var newApparelItems = this.state.apparelItems.map(function(item) {
-	// 			if (item !== basketItem) {
-	// 				return (item)
-	// 			} else {
-	// 				item.quantity += basketQuantity
-	// 				return (item)
-	// 			}
-	// 	}.bind(this))
-	// 	this.setState({apparelItems: newApparelItems})
-	// },
+	updateApparel: function(selectedItem, quantity) {
+		var currentApprelState = this.state.apparelItems
+		var newApprelItem = {};
+		Object.assign(newApprelItem, selectedItem);
+		currentApprelState.forEach(function(item) {
+			// HACK: Currently using items names as comparison check would require unique ids in future.
+			if (item.name === selectedItem.name) {
+				item.quantity += quantity
+				return (this.setState({apparelItems: currentApprelState}))
+			}
+		}.bind(this))
+	},
 
 	handleFormSubmitRemoveFromBasket: function(e) {
 		console.log("you have reached: handleFormSubmitRemoveFromBasket");
-		var apparelIndex = e.target.qty.className;
-		var basketQuantity = parseInt(e.target.qty.value);
-		var basketItem = this.state.basketItems[apparelIndex]
-		// this.removeFromArray(basketItem, basketQuantity);
-		// this.RemoveFromBasket(basketItem, basketQuantity);
+		var index = e.target.qty.className;
+		var quantity = parseInt(e.target.qty.value);
+		var selectedItem = this.state.basketItems[index];
+		var state = this.state.basketItems
+		this.removeItemFromBasket(state, selectedItem, quantity);
+		this.updateApparel(selectedItem, quantity);
 	},
 
 	//Totaling Basket Amount
