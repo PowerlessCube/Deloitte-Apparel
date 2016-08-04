@@ -4,12 +4,16 @@ var SampleData = require("../sampleData.js");
 var ApparelDisplay = require("./ApparelDisplay.jsx");
 var FilterDisplay = require("./FilterDisplay.jsx");
 var BasketDisplay = require("./BasketDisplay.jsx");
+var TotalDisplay = require("./TotalDisplay.jsx");
+var TotalLogic = require("../models/totalLogic.js")
 
 var MainDisplay = React.createClass({
 	getInitialState: function() {
 		return {
 			apparelItems: SampleData,
-			basketItems: []
+			basketItems: [],
+			totalDiscount: 0,
+			shoppingTotal: 0
 		};
 	},
 
@@ -51,11 +55,17 @@ var MainDisplay = React.createClass({
 		this.setState({apparelItems: newApparelItems})
 	},
 
-	handleFormSubmit: function(e) {
+	handleFormSubmitAddToBasket: function(e) {
 		var apparelIndex = e.target.qty.className;
 		var basketQuantity = parseInt(e.target.qty.value);
 		this.updateApparelDisplay(apparelIndex, basketQuantity);
 		this.updateBasket(apparelIndex, basketQuantity);
+	},
+
+	//Totaling Basket Amount
+	handleSubTotal: function() {
+		var basketItems = this.state.basketItems
+		return (TotalLogic.itemSum(basketItems))
 	},
 
 	render: function() {
@@ -68,10 +78,15 @@ var MainDisplay = React.createClass({
 				/>
 				<ApparelDisplay
 					apparelItems={this.state.apparelItems}
-					handleSubmit={this.handleFormSubmit}
+					handleSubmit={this.handleFormSubmitAddToBasket}
 				/>
 				<BasketDisplay
 					basketDisplay={this.state.basketItems}
+				/>
+				<TotalDisplay
+					subTotal={this.handleSubTotal()}
+					totalDiscount={this.state.totalDiscount}
+					shoppingTotal={this.state.shoppingTotal}
 				/>
 			</div>
 		)

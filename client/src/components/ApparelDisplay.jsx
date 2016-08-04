@@ -1,9 +1,6 @@
 var React = require("react");
 
 var ApparelDisplay = React.createClass ({
-	handleQtyChange: function(e) {
-		// body...
-	},
 
 	handleSubmit: function(e) {
 		e.preventDefault();
